@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.vertx:vertx-core:4.0.0'
+    implementation 'io.vertx:vertx-web:4.0.0'
+}
+
+application {
+    mainClass = 'org.example.MainVerticle'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.example.MainVerticle'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+}
+
+
+
